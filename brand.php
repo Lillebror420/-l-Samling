@@ -61,7 +61,7 @@ function countryFlagEmoji($countryCode)
                         <td><?php echo $row['Udlob'] ? date('d-m-Y', strtotime($row['Udlob'])) : 'Uden dato 📅'; ?></td>
                         <td class="image-cell">
                             <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/Billede-på-vej.png'); ?>" 
-                                alt=" <?php echo htmlspecialchars($row['Brand'] $row['Collection'] ?? 'produkt'); ?>">
+                                alt=" <?php echo htmlspecialchars($row['Brand'] '-' $row['Collection'] ?? 'produkt'); ?>">
                         </td>
                     </tr>
                     <tr class="details-row">

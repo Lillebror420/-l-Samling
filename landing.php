@@ -10,7 +10,7 @@
         <h1>🍺 Velkommen til Øl Samlingen 🍺</h1>
     </header>
     <div class="container">
-        <h2>Vælg et Bryghus</h2>
+        <h2>🏭 Vælg et Bryghus 🏭</h2>
         <ul>
             <?php
             require('db.php');

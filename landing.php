@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Øl Samling - Brands</title>
+    <title>Vælg bryghus</title>
     <link rel="stylesheet" href="assets/css/landing.css?v=<?php echo time(); ?>">
     <link rel="icon" type="image/x-icon" href="assets/media/favicons/landing.png">
 </head>

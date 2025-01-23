@@ -87,15 +87,6 @@ function countryFlagEmoji($countryCode)
     </div>
 
 
-    <script>
-        function toggleDetails(row) {
-            // Find næste søskende element (detaljerækken)
-            const nextRow = row.nextElementSibling;
-            if (nextRow && nextRow.classList.contains('details-row')) {
-                // Skift synlighed
-                nextRow.style.display = nextRow.style.display === 'table-row' ? 'none' : 'table-row';
-            }
-        }
-    </script>
+
 </body>
 </html>

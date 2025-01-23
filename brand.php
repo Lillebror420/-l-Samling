@@ -38,6 +38,7 @@ function countryFlagEmoji($countryCode)
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Produkter fra <?php echo htmlspecialchars($brand); ?></title>
     <link rel="stylesheet" href="assets/css/brand.css?v=<?php echo time(); ?>">
+    <script src="brandModal.js"></script>
 </head>
 <body>
     <header>
@@ -59,7 +60,8 @@ function countryFlagEmoji($countryCode)
                         <td><?php echo htmlspecialchars($row['Collection'] ?? 'INGEN DATA'); ?></td>
                         <td><?php echo $row['Udlob'] ? date('d-m-Y', strtotime($row['Udlob'])) : 'Uden dato 📅'; ?></td>
                         <td class="image-cell">
-                            <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/Billede-på-vej.png'); ?>" alt="Billede af <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>">
+                            <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/Billede-på-vej.png'); ?>" 
+                                alt="Billede af <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>">
                         </td>
                     </tr>
                     <tr class="details-row">
@@ -77,6 +79,13 @@ function countryFlagEmoji($countryCode)
             <p>Ingen produkter fundet for dette brand.</p>
         <?php endif; ?>
     </div>
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
 
     <script>
         function toggleDetails(row) {

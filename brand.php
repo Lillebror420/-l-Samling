@@ -87,6 +87,46 @@ function countryFlagEmoji($countryCode)
     </div>
 
 
+    <script>
+    // Modal elementer
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const captionText = document.getElementById("caption");
+    const closeModal = document.querySelector(".close");
+
+    // Åbn modal, når man klikker på billedet
+    document.querySelectorAll(".image-cell img").forEach(img => {
+        img.addEventListener("click", function(event) {
+            // Forhindre række-foldning
+            event.stopPropagation();
+
+            // Åbn modal
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt; // Brug billedets alt-tekst som caption
+        });
+    });
+
+    // Luk modal, når man klikker på luk-knappen
+    closeModal.addEventListener("click", function() {
+        modal.style.display = "none";
+    });
+
+    // Luk modal, når man klikker uden for billedet
+    modal.addEventListener("click", function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // Fold detaljer ud, når man klikker på en række
+    function toggleDetails(row) {
+        const nextRow = row.nextElementSibling;
+        if (nextRow && nextRow.classList.contains('details-row')) {
+            nextRow.style.display = nextRow.style.display === 'table-row' ? 'none' : 'table-row';
+        }
+    }
+</script>
 
 </body>
 </html>

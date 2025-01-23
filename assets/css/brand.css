@@ -45,9 +45,9 @@ table th {
 }
 
 .image-cell img {
-    max-width: 100px;
-    height: auto;
-    border-radius: 5px;
+    max-width: 100%; /* Sørger for, at billedet ikke overstiger containerens bredde */
+    width: 300px;    /* Sæt en specifik bredde */
+    height: auto;    /* Bevar billedets proportioner */
 }
 
 .details-row {

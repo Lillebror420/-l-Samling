@@ -46,7 +46,7 @@ table th {
 
 .image-cell img {
     max-width: 100%; /* Sørger for, at billedet ikke overstiger containerens bredde */
-    width: 300px;    /* Sæt en specifik bredde */
+    width: 150px;    /* Sæt en specifik bredde */
     height: auto;    /* Bevar billedets proportioner */
 }
 
@@ -72,5 +72,4 @@ table th {
 .main-row:hover {
     background-color: #f1f1f1;
     cursor: pointer;
-    height: auto;
 }

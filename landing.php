@@ -3,7 +3,7 @@
 <head>
     <title>Øl Samling - Brands</title>
     <link rel="stylesheet" href="assets/css/landing.css?v=<?php echo time(); ?>">
-    
+    <link rel="icon" type="image/x-icon" href="media/assets/favicons/landing.png">
 </head>
 <body>
     <header>

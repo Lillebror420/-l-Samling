@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Øl Samling - Brands</title>
-    <link rel="stylesheet" href="/assets/css/landing.css">
+    <link rel="stylesheet" href="assets/css/landing.css">
 </head>
 <body>
     <header>

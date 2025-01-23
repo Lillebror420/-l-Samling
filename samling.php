@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Øl Samling</title>
-    <link rel="stylesheet" href="/assets/css/samling.css">
+    <link rel="stylesheet" href="assets/css/samling.css">
 </head>
 <body>
     <header>

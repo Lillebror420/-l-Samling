@@ -36,7 +36,7 @@ function countryFlagEmoji($countryCode)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produkter fra <?php echo htmlspecialchars($brand); ?></title>
+    <title>🍻 Øl fra <?php echo htmlspecialchars($brand); ?> 🍻</title>
     <link rel="stylesheet" href="assets/css/brand.css?v=<?php echo time(); ?>">
     <script src="brandModal.js"></script>
 </head>

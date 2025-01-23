@@ -36,14 +36,14 @@ function countryFlagEmoji($countryCode)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍻 Øl fra <?php echo htmlspecialchars($brand); ?> 🍻</title>
+    <title>Øl fra <?php echo htmlspecialchars($brand); ?> 🍻</title>
     <link rel="icon" type="image/x-icon" href="assets/media/favicons/brand.png">
     <link rel="stylesheet" href="assets/css/brand.css?v=<?php echo time(); ?>">
     <script src="brandModal.js"></script>
 </head>
 <body>
     <header>
-        <h1>Produkter fra <?php echo htmlspecialchars($brand); ?></h1>
+    <h1><?php echo $result->num_rows; ?> øl fra <?php echo htmlspecialchars($brand); ?></h1>
     </header>
     <div class="container">
         <a href="landing.php" class="back-link">← Tilbage til oversigten</a>

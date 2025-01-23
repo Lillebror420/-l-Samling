@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            overflow: hidden; /* Hide scrollbars */
+        }
+        video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Video -->
+    <video id="loading-video" autoplay loop muted>
+        <source src="assets/loading.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        // Funktion til at generere et tilfældigt tidsinterval mellem min og max (i millisekunder)
+        function getRandomDelay(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Definer minimum og maksimum forsinkelse (i millisekunder)
+        const minDelay = 5000;  // 5 sekunder
+        const maxDelay = 10000; // 10 sekunder
+
+        // Generer det tilfældige tidsinterval
+        const randomDelay = getRandomDelay(minDelay, maxDelay);
+
+        console.log(`Redirecting to samling.php in ${randomDelay / 1000} seconds.`);
+
+        // Sæt en timeout til at omdirigere efter det tilfældige tidsinterval
+        setTimeout(function() {
+            window.location.href = 'landing.php';
+        }, randomDelay);
+    </script>
+</body>
+</html>

@@ -37,7 +37,7 @@ function countryFlagEmoji($countryCode)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🍻 Øl fra <?php echo htmlspecialchars($brand); ?> 🍻</title>
-    <link rel="icon" type="image/x-icon" href="assets/favicons/brand.png">
+    <link rel="icon" type="image/x-icon" href="media/assets/favicons/brand.png">
     <link rel="stylesheet" href="assets/css/brand.css?v=<?php echo time(); ?>">
     <script src="brandModal.js"></script>
 </head>
@@ -61,7 +61,7 @@ function countryFlagEmoji($countryCode)
                         <td><?php echo htmlspecialchars($row['Collection'] ?? 'INGEN DATA'); ?></td>
                         <td><?php echo $row['Udlob'] ? date('d-m-Y', strtotime($row['Udlob'])) : 'Uden dato 📅'; ?></td>
                         <td class="image-cell">
-                            <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/Billede-på-vej.png'); ?>" 
+                            <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/media/Billede-på-vej.png'); ?>" 
                                 alt=" <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>">
                         </td>
                     </tr>

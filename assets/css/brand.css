@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header {
+    background-color: #4caf50;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th, table td {
+    text-align: left;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4caf50;
+    color: white;
+}
+
+.image-cell img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.details-row {
+    display: none; /* Skjuler detaljerne som standard */
+}
+
+.details-content {
+    padding: 10px;
+}
+
+.back-link {
+    display: block;
+    margin: 15px 0;
+    text-decoration: none;
+    color: #4caf50;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.main-row:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}

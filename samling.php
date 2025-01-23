@@ -3,7 +3,7 @@
 <head>
     <title>Øl Samling</title>
     <link rel="stylesheet" href="assets/css/samling.css">
-    <link rel="icon" type="image/x-icon" href="media/assets/favicons/landing.png">
+    <link rel="icon" type="image/x-icon" href="assets/media/favicons/landing.png">
 </head>
 <body>
     <header>

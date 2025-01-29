@@ -7,15 +7,18 @@
 </head>
 <body>
     <header>
-    <h1>🍺 Velkommen til Øl Samlingen 🍺
-        
-        Der er <?php 
-            require('db.php');
-            $countQuery = "SELECT COUNT(*) as total FROM samler_vanvid";
-            $countResult = $conn->query($countQuery);
-            $countRow = $countResult->fetch_assoc();
-            echo $countRow['total'];
-        ?> øl i samlingen.</h1>
+    <h1 class="main-header">
+            <span class="title">🍺 Velkommen til Øl Samlingen 🍺</span>
+            <span class="sub-title">
+                Der er <?php 
+                    require('db.php');
+                    $countQuery = "SELECT COUNT(*) as total FROM samler_vanvid";
+                    $countResult = $conn->query($countQuery);
+                    $countRow = $countResult->fetch_assoc();
+                    echo $countRow['total'];
+                ?> øl i samlingen.
+            </span>
+        </h1>
     </header>
     <div class="container">
         <h2>🏭 Vælg et Bryghus 🏭</h2>

@@ -14,7 +14,7 @@ if (!isset($_GET['brand'])) {
 $brand = $conn->real_escape_string($_GET['brand']);
 
 // Hent data for det valgte brand
-$query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
+$query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand' ORDER BY udlob";
 $result = $conn->query($query);
 
 if (!$result) {

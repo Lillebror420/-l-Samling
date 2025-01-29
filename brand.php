@@ -10,12 +10,22 @@ if (!isset($_GET['brand'])) {
     die("Fejl: Ingen brand valgt.");
 }
 
+// Tjek om 'fejl' parameter er sat
+if (isset($_GET['fejl']) && $_GET['fejl'] == 1) {
+    $query = "SELECT * FROM samler_vanvid WHERE Fejl = 1"; 
+} else {
+    // Beskyt mod SQL-injektion
+    $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
+    $result = $conn->query($query);
+}
+
+
 // Beskyt mod SQL-injektion
 $brand = $conn->real_escape_string($_GET['brand']);
 
 // Hent data for det valgte brand
-$query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
-$result = $conn->query($query);
+// $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
+// $result = $conn->query($query);
 
 if (!$result) {
     die("Fejl ved forespørgsel: " . $conn->error);

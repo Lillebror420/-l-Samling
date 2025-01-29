@@ -70,8 +70,8 @@ function countryFlagEmoji($countryCode)
                                 <p><strong>ID:</strong> <?php echo htmlspecialchars($row['ID'] ?? 'INGEN DATA'); ?></p>
                                 <p><strong>Placering:</strong> <?php echo htmlspecialchars($row['Placering'] ?? 'INGEN DATA'); ?></p>
                                 <p><strong>Land:</strong> <?php echo countryFlagEmoji($row['Land'] ?? '') . ' (' . htmlspecialchars($row['Land'] ?? 'INGEN DATA') . ')'; ?></p>
-                                <p><strong>Korrekt Emballage:</strong> <span class="korrekt-emballage"><?php echo ($row['rigtig_emballage'] == 0) ? "❌" : "✅"; ?></span></p>
-                                <p class="beskrivelse-af-fejl"><strong>Beskrivelse af fejl:</strong> <?php echo htmlspecialchars($row['fejl_note'] ?? 'INGEN DATA'); ?></p>
+                                <p><strong>Korrekt Emballage:</strong> <?php echo htmlspecialchars($row['rigtig_emballage'] == 0) ? "❌" : "✅"; ?></p>
+                                <p><strong>Beskrivelse af fejl:</strong> <?php echo htmlspecialchars($row['fejl_note'] ?? 'INGEN DATA'); ?></p>
                             </div>
                         </td>
                     </tr>
@@ -90,25 +90,7 @@ function countryFlagEmoji($countryCode)
 
 
     <script>
-
-function toggleDetails(row) {
-    const nextRow = row.nextElementSibling;
-    if (nextRow && nextRow.classList.contains('details-row')) {
-        nextRow.style.display = nextRow.style.display === 'table-row' ? 'none' : 'table-row';
-
-        const korrektEmballage = row.querySelector('.korrekt-emballage').innerText.trim();
-        const fejlNote = nextRow.querySelector('.beskrivelse-af-fejl');
-
-        if (korrektEmballage === "✅" && fejlNote) {
-            fejlNote.style.display = "none";
-        } else if (fejlNote) {
-            fejlNote.style.display = "block";
-        }
-    }
-}
-
-
-
+        
     // Modal elementer
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modalImage");

@@ -12,6 +12,7 @@
     <div class="container">
         <h2>🏭 Vælg et Bryghus 🏭</h2>
         <ul>
+        <li><a href="brand.php?fejl=1">❌ Flasker med fejl</a></li> <!-- Tilføj link til kun fejlflasker -->
             <?php
             require('db.php');
             $brandsQuery = "SELECT DISTINCT Brand FROM samler_vanvid";

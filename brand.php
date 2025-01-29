@@ -12,7 +12,7 @@ if (!isset($_GET['brand'])) {
 
 // Tjek om 'fejl' parameter er sat
 if (isset($_GET['fejl']) && $_GET['fejl'] == 1) {
-    $query = "SELECT * FROM samler_vanvid WHERE Fejl = 1"; 
+    $query = "SELECT * FROM samler_vanvid WHERE rigtig_emballage = 0"; 
 } else {
     // Beskyt mod SQL-injektion
     $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";

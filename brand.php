@@ -22,6 +22,7 @@ if (isset($_GET['fejl']) && $_GET['fejl'] == 1) {
 
 // Beskyt mod SQL-injektion
 $brand = $conn->real_escape_string($_GET['brand']);
+$fejl = isset($_GET['fejl']) ? (int)$_GET['fejl'] : null;
 
 // Hent data for det valgte brand
 $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";

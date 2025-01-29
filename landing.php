@@ -27,7 +27,7 @@
         $countResult = $conn->query($countQuery);
         $countRow = $countResult->fetch_assoc();
         echo $countRow['totalBrands'];
-    ?> bryghus i samlingen.</span>
+    ?> bryghuse i samlingen.</span>
 </h2>
 
 

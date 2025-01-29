@@ -71,7 +71,7 @@ function countryFlagEmoji($countryCode)
                                 <p><strong>Placering:</strong> <?php echo htmlspecialchars($row['Placering'] ?? 'INGEN DATA'); ?></p>
                                 <p><strong>Land:</strong> <?php echo countryFlagEmoji($row['Land'] ?? '') . ' (' . htmlspecialchars($row['Land'] ?? 'INGEN DATA') . ')'; ?></p>
                                 <p><strong>Korrekt Emballage:</strong> <?php echo htmlspecialchars($row['rigtig_emballage'] == 0) ? "❌" : "✅"; ?></p>
-                                <p><strong>Beskrivelse af fejl:</strong> <?php echo htmlspecialchars($row['fejl_note'] ?? 'INGEN DATA'); ?></p>
+                                <p><strong>Beskrivelse:</strong> <?php echo htmlspecialchars($row['fejl_note'] ?? 'INGEN DATA'); ?></p>
                             </div>
                         </td>
                     </tr>

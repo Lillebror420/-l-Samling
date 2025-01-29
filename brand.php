@@ -68,7 +68,7 @@ function countryFlagEmoji($countryCode)
                         <td class="image-cell">
                             <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/media/Billede-på-vej.png'); ?>" 
                                  alt=" <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>"
-                                 onclick="openModal(this)">
+                                 onclick="openModal(event, this)">
                         </td>
                     </tr>
                     <tr class="details-row" style="display: none;">
@@ -98,11 +98,14 @@ function countryFlagEmoji($countryCode)
 
     <script>
     // Åbner modal
-    function openModal(img) {
+    function openModal(event, img) {
+        // Forhindre, at klik på billedet også udløser foldbar række
+        event.stopPropagation();
+
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("modalImage");
         const captionText = document.getElementById("caption");
-        
+
         modal.style.display = "block";
         modalImg.src = img.src;
         captionText.innerHTML = img.alt;
@@ -118,10 +121,13 @@ function countryFlagEmoji($countryCode)
     document.addEventListener("DOMContentLoaded", function () {
         const rows = document.querySelectorAll(".main-row");
         rows.forEach(function(row) {
-            row.addEventListener("click", function() {
-                const nextRow = this.nextElementSibling;
-                if (nextRow && nextRow.classList.contains("details-row")) {
-                    nextRow.style.display = (nextRow.style.display === "none" || nextRow.style.display === "") ? "table-row" : "none";
+            row.addEventListener("click", function(event) {
+                // Undgå at fold info ud, hvis der er klikket på billedet
+                if (event.target.tagName !== 'IMG') {
+                    const nextRow = this.nextElementSibling;
+                    if (nextRow && nextRow.classList.contains("details-row")) {
+                        nextRow.style.display = (nextRow.style.display === "none" || nextRow.style.display === "") ? "table-row" : "none";
+                    }
                 }
             });
         });

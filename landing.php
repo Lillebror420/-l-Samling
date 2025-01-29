@@ -8,6 +8,7 @@
 <body>
     <header>
     <h1>🍺 Velkommen til Øl Samlingen 🍺
+        
         Der er <?php 
             require('db.php');
             $countQuery = "SELECT COUNT(*) as total FROM samler_vanvid";

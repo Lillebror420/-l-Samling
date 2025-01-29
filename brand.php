@@ -132,6 +132,3 @@ function countryFlagEmoji($countryCode)
 </body>
 </html>
 
-</body>
-</html>
-

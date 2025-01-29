@@ -7,7 +7,7 @@
 </head>
 <body>
     <header>
-        <h1>🍺 Velkommen til Øl Samlingen 🍺</h1>
+        <h1>🍺 Velkommen til Øl Samlingen undersøg <?php echo $result->num_rows; ?>🍺</h1>
     </header>
     <div class="container">
         <h2>🏭 Vælg et Bryghus 🏭</h2>

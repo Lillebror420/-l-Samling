@@ -205,9 +205,10 @@ table tr:hover {
 
 }
 
-.small-text {
-    font-size: 1.2rem;  /* Juster størrelsen efter behov */
-    font-weight: normal;  /* Gør teksten lidt lettere, hvis du ønsker det */
+h2 .small-text {
+    font-size: 1.2rem;  /* Mindre tekst */
+    font-weight: normal;  /* Gør teksten lettere */
 }
+
 
 

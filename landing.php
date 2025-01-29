@@ -22,13 +22,14 @@
     </header>
     <div class="container">
     <h2>🏭 Vælg et Bryghus 🏭<br>
-    Der er <span class="small-text"><?php 
+    <span class="small-text">Der er <?php 
         $countQuery = "SELECT COUNT(DISTINCT Brand) as totalBrands FROM samler_vanvid";
         $countResult = $conn->query($countQuery);
         $countRow = $countResult->fetch_assoc();
         echo $countRow['totalBrands'];
-    ?></span> bryghus i samlingen.
-    </h2>
+    ?> bryghus i samlingen.</span>
+</h2>
+
 
         <ul>
             <?php

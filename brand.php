@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 // Tjek om 'brand' parameter er sat
-if (!isset($_GET['brand'])) {
+if (!isset($_GET['brand']) && !isset($_GET['fejl'])) {
     die("Fejl: Ingen brand valgt.");
 }
 

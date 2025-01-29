@@ -67,7 +67,7 @@ function countryFlagEmoji($countryCode)
                         <td><?php echo $row['Udlob'] ? date('d-m-Y', strtotime($row['Udlob'])) : 'Uden dato 📅'; ?></td>
                         <td class="image-cell">
                             <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/media/Billede-på-vej.png'); ?>" 
-                                alt=" <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>">
+                                 alt=" <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>">
                         </td>
                     </tr>
                     <tr class="details-row">
@@ -87,48 +87,52 @@ function countryFlagEmoji($countryCode)
             <p>Ingen produkter fundet for dette brand.</p>
         <?php endif; ?>
     </div>
+
+    <!-- Modal til at vise billeder -->
+    <div id="imageModal" style="display:none;">
+        <span class="close">&times;</span>
+        <img id="modalImage">
+        <div id="caption"></div>
+    </div>
+
     <script>
-        
-    // Modal elementer
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const captionText = document.getElementById("caption");
-    const closeModal = document.querySelector(".close");
+    document.addEventListener("DOMContentLoaded", function () {
+        // Modal elementer
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const captionText = document.getElementById("caption");
+        const closeModal = document.querySelector(".close");
 
-    // Åbn modal, når man klikker på billedet
-    document.querySelectorAll(".image-cell img").forEach(img => {
-        img.addEventListener("click", function(event) {
-            // Forhindre række-foldning
-            event.stopPropagation();
-
-            // Åbn modal
-            modal.style.display = "block";
-            modalImg.src = this.src;
-            captionText.innerHTML = this.alt; // Brug billedets alt-tekst som caption
+        // Åbn modal, når man klikker på et billede
+        document.querySelectorAll(".image-cell img").forEach(img => {
+            img.addEventListener("click", function(event) {
+                event.stopPropagation();
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt; 
+            });
         });
-    });
 
-    // Luk modal, når man klikker på luk-knappen
-    closeModal.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
-
-    // Luk modal, når man klikker uden for billedet
-    modal.addEventListener("click", function(event) {
-        if (event.target === modal) {
+        // Luk modal, når man klikker på luk-knappen
+        closeModal.addEventListener("click", function() {
             modal.style.display = "none";
+        });
+
+        // Luk modal, når man klikker uden for billedet
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+
+        // Fold detaljer ud, når man klikker på en række
+        function toggleDetails(row) {
+            const nextRow = row.nextElementSibling;
+            if (nextRow && nextRow.classList.contains('details-row')) {
+                nextRow.style.display = nextRow.style.display === 'table-row' ? 'none' : 'table-row';
+            }
         }
     });
-
-    // Fold detaljer ud, når man klikker på en række
-    function toggleDetails(row) {
-        const nextRow = row.nextElementSibling;
-        if (nextRow && nextRow.classList.contains('details-row')) {
-            nextRow.style.display = nextRow.style.display === 'table-row' ? 'none' : 'table-row';
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>
-

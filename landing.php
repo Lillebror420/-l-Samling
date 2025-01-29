@@ -14,12 +14,11 @@
         <ul>
             <?php
             require('db.php');
-            $brandsQuery = "SELECT DISTINCT Brand, rigtig_emballage FROM samler_vanvid";
+            $brandsQuery = "SELECT DISTINCT Brand FROM samler_vanvid";
             $brandsResult = $conn->query($brandsQuery);
 
             while ($row = $brandsResult->fetch_assoc()) {
                 echo '<li><a href="brand.php?brand=' . urlencode($row['Brand']) . '">' . htmlspecialchars($row['Brand']) . '</a></li>';
-                echo '<li><a href="brand.php?brand=' . urlencode($row['rigtig_emballage']) . '">' . htmlspecialchars($row['rigtig_emballage']) . '</a></li>';
             }
             ?>
         </ul>

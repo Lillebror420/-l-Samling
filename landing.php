@@ -7,7 +7,14 @@
 </head>
 <body>
     <header>
-        <h1>🍺 Velkommen til Øl Samlingen undersøg <?php echo $result->num_rows; ?>🍺</h1>
+    <h1>🍺 Velkommen til Øl Samlingen 🍺</h1>
+        <p>Der er <?php 
+            require('db.php');
+            $countQuery = "SELECT COUNT(*) as total FROM samler_vanvid";
+            $countResult = $conn->query($countQuery);
+            $countRow = $countResult->fetch_assoc();
+            echo $countRow['total'];
+        ?> øl i databasen.</p>
     </header>
     <div class="container">
         <h2>🏭 Vælg et Bryghus 🏭</h2>

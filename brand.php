@@ -5,23 +5,30 @@ require('db.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Tjek om 'brand' parameter er sat
-if (!isset($_GET['brand'])) {
+// Tjek om der er filtrering efter fejl
+$fejlFilter = isset($_GET['fejl']) && $_GET['fejl'] == "1";
+
+// Hent brand eller angiv standardtekst
+$brand = isset($_GET['brand']) ? $conn->real_escape_string($_GET['brand']) : null;
+
+// Byg SQL-query baseret på filter
+if ($fejlFilter) {
+    $query = "SELECT * FROM samler_vanvid WHERE rigtig_emballage = 0";
+    $pageTitle = "❌ Flasker med fejl";
+} elseif ($brand) {
+    $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
+    $pageTitle = "Øl fra " . htmlspecialchars($brand) . " 🍻";
+} else {
     die("Fejl: Ingen brand valgt.");
 }
 
-// Beskyt mod SQL-injektion
-$brand = $conn->real_escape_string($_GET['brand']);
-
-// Hent data for det valgte brand
-$query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
+// Udfør forespørgslen
 $result = $conn->query($query);
-
 if (!$result) {
     die("Fejl ved forespørgsel: " . $conn->error);
 }
 
-// Funktion til at generere flag-emoji baseret på landekode
+// Funktion til flag-emoji
 function countryFlagEmoji($countryCode)
 {
     if (!$countryCode) return '🏳️';
@@ -36,16 +43,20 @@ function countryFlagEmoji($countryCode)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Øl fra <?php echo htmlspecialchars($brand); ?> 🍻</title>
+    <title><?php echo $pageTitle; ?></title>
     <link rel="icon" type="image/x-icon" href="assets/media/favicons/brand.png">
     <link rel="stylesheet" href="assets/css/brand.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <header>
-    <h1><?php echo $result->num_rows; ?> øl fra <?php echo htmlspecialchars($brand); ?></h1>
+        <h1><?php echo $result->num_rows; ?> <?php echo $pageTitle; ?></h1>
     </header>
     <div class="container">
         <a href="landing.php" class="back-link">← Tilbage til oversigten</a>
+        <?php if (!$fejlFilter): ?>
+            <a href="brand.php?fejl=1" class="filter-link">❌ Vis kun flasker med fejl</a>
+        <?php endif; ?>
+
         <?php if ($result->num_rows > 0): ?>
             <table>
                 <tr>
@@ -70,7 +81,7 @@ function countryFlagEmoji($countryCode)
                                 <p><strong>ID:</strong> <?php echo htmlspecialchars($row['ID'] ?? 'INGEN DATA'); ?></p>
                                 <p><strong>Placering:</strong> <?php echo htmlspecialchars($row['Placering'] ?? 'INGEN DATA'); ?></p>
                                 <p><strong>Land:</strong> <?php echo countryFlagEmoji($row['Land'] ?? '') . ' (' . htmlspecialchars($row['Land'] ?? 'INGEN DATA') . ')'; ?></p>
-                                <p><strong>Korrekt Emballage:</strong> <?php echo htmlspecialchars($row['rigtig_emballage'] == 0) ? "❌" : "✅"; ?></p>
+                                <p><strong>Korrekt Emballage:</strong> <?php echo ($row['rigtig_emballage'] == 0) ? "❌" : "✅"; ?></p>
                                 <p><strong>Beskrivelse af fejl:</strong> <?php echo htmlspecialchars($row['fejl_note'] ?? 'INGEN DATA'); ?></p>
                             </div>
                         </td>
@@ -78,50 +89,11 @@ function countryFlagEmoji($countryCode)
                 <?php endwhile; ?>
             </table>
         <?php else: ?>
-            <p>Ingen produkter fundet for dette brand.</p>
+            <p>Ingen produkter fundet.</p>
         <?php endif; ?>
     </div>
-    <!-- Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="caption"></div>
-    </div>
-
 
     <script>
-        
-    // Modal elementer
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const captionText = document.getElementById("caption");
-    const closeModal = document.querySelector(".close");
-
-    // Åbn modal, når man klikker på billedet
-    document.querySelectorAll(".image-cell img").forEach(img => {
-        img.addEventListener("click", function(event) {
-            // Forhindre række-foldning
-            event.stopPropagation();
-
-            // Åbn modal
-            modal.style.display = "block";
-            modalImg.src = this.src;
-            captionText.innerHTML = this.alt; // Brug billedets alt-tekst som caption
-        });
-    });
-
-    // Luk modal, når man klikker på luk-knappen
-    closeModal.addEventListener("click", function() {
-        modal.style.display = "none";
-    });
-
-    // Luk modal, når man klikker uden for billedet
-    modal.addEventListener("click", function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
     // Fold detaljer ud, når man klikker på en række
     function toggleDetails(row) {
         const nextRow = row.nextElementSibling;
@@ -129,7 +101,7 @@ function countryFlagEmoji($countryCode)
             nextRow.style.display = nextRow.style.display === 'table-row' ? 'none' : 'table-row';
         }
     }
-</script>
+    </script>
 
 </body>
 </html>

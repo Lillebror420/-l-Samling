@@ -61,16 +61,17 @@ function countryFlagEmoji($countryCode)
                     <th>Billede 📸</th>
                 </tr>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr class="main-row" onclick="toggleDetails(this)">
+                    <tr class="main-row">
                         <td><?php echo htmlspecialchars($row['Brand'] ?? 'INGEN DATA'); ?></td>
                         <td><?php echo htmlspecialchars($row['Collection'] ?? 'INGEN DATA'); ?></td>
                         <td><?php echo $row['Udlob'] ? date('d-m-Y', strtotime($row['Udlob'])) : 'Uden dato 📅'; ?></td>
                         <td class="image-cell">
                             <img src="<?php echo htmlspecialchars($row['Img'] ?? 'assets/media/Billede-på-vej.png'); ?>" 
-                                 alt=" <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>">
+                                 alt=" <?php echo htmlspecialchars($row['Collection'] ?? 'produkt'); ?>"
+                                 onclick="openModal(this)">
                         </td>
                     </tr>
-                    <tr class="details-row">
+                    <tr class="details-row" style="display: none;">
                         <td colspan="4">
                             <div class="details-content">
                                 <p><strong>ID:</strong> <?php echo htmlspecialchars($row['ID'] ?? 'INGEN DATA'); ?></p>
@@ -90,48 +91,40 @@ function countryFlagEmoji($countryCode)
 
     <!-- Modal til at vise billeder -->
     <div id="imageModal" style="display:none;">
-        <span class="close">&times;</span>
+        <span class="close" onclick="closeModal()">&times;</span>
         <img id="modalImage">
         <div id="caption"></div>
     </div>
 
     <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Modal elementer
+    // Åbner modal
+    function openModal(img) {
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("modalImage");
         const captionText = document.getElementById("caption");
-        const closeModal = document.querySelector(".close");
+        
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        captionText.innerHTML = img.alt;
+    }
 
-        // Åbn modal, når man klikker på et billede
-        document.querySelectorAll(".image-cell img").forEach(img => {
-            img.addEventListener("click", function(event) {
-                event.stopPropagation();
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt; 
+    // Lukker modal
+    function closeModal() {
+        const modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+    }
+
+    // Fold detaljer ud og ind
+    document.addEventListener("DOMContentLoaded", function () {
+        const rows = document.querySelectorAll(".main-row");
+        rows.forEach(function(row) {
+            row.addEventListener("click", function() {
+                const nextRow = this.nextElementSibling;
+                if (nextRow && nextRow.classList.contains("details-row")) {
+                    nextRow.style.display = (nextRow.style.display === "none" || nextRow.style.display === "") ? "table-row" : "none";
+                }
             });
         });
-
-        // Luk modal, når man klikker på luk-knappen
-        closeModal.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
-
-        // Luk modal, når man klikker uden for billedet
-        modal.addEventListener("click", function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        });
-
-        // Fold detaljer ud, når man klikker på en række
-        function toggleDetails(row) {
-            const nextRow = row.nextElementSibling;
-            if (nextRow && nextRow.classList.contains('details-row')) {
-                nextRow.style.display = nextRow.style.display === 'table-row' ? 'none' : 'table-row';
-            }
-        }
     });
     </script>
 </body>

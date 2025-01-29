@@ -15,8 +15,8 @@ if (isset($_GET['fejl']) && $_GET['fejl'] == 1) {
     $query = "SELECT * FROM samler_vanvid WHERE rigtig_emballage = 0"; 
 } else {
     // Beskyt mod SQL-injektion
+    $brand = $conn->real_escape_string($_GET['brand']);
     $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
-    $result = $conn->query($query);
 }
 
 
@@ -24,8 +24,8 @@ if (isset($_GET['fejl']) && $_GET['fejl'] == 1) {
 $brand = $conn->real_escape_string($_GET['brand']);
 
 // Hent data for det valgte brand
-// $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
-// $result = $conn->query($query);
+$query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
+$result = $conn->query($query);
 
 if (!$result) {
     die("Fejl ved forespørgsel: " . $conn->error);

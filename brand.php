@@ -5,27 +5,22 @@ require('db.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Tjek om 'brand' parameter er sat
-if (!isset($_GET['brand']) && !isset($_GET['fejl'])) {
+// Håndter både brand og fejl
+$brand = isset($_GET['brand']) ? $conn->real_escape_string($_GET['brand']) : null;
+$fejl = isset($_GET['fejl']) ? (int)$_GET['fejl'] : null;
+
+// Hvis hverken brand eller fejl er angivet, vis fejlbesked
+if (!$brand && !$fejl) {
     die("Fejl: Ingen brand valgt.");
 }
 
-// Tjek om 'fejl' parameter er sat
-if (isset($_GET['fejl']) && $_GET['fejl'] == 1) {
+// Byg SQL-forespørgsel baseret på om vi filtrerer fejlflasker
+if ($fejl === 1) {
     $query = "SELECT * FROM samler_vanvid WHERE rigtig_emballage = 0"; 
 } else {
-    // Beskyt mod SQL-injektion
-    $brand = $conn->real_escape_string($_GET['brand']);
     $query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
 }
 
-
-// Beskyt mod SQL-injektion
-$brand = $conn->real_escape_string($_GET['brand']);
-$fejl = isset($_GET['fejl']) ? (int)$_GET['fejl'] : null;
-
-// Hent data for det valgte brand
-$query = "SELECT * FROM samler_vanvid WHERE Brand = '$brand'";
 $result = $conn->query($query);
 
 if (!$result) {
@@ -47,13 +42,13 @@ function countryFlagEmoji($countryCode)
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Øl fra <?php echo htmlspecialchars($brand); ?> 🍻</title>
+    <title>Øl fra <?php echo htmlspecialchars($brand ?: 'Fejl Flasker'); ?> 🍻</title>
     <link rel="icon" type="image/x-icon" href="assets/media/favicons/brand.png">
     <link rel="stylesheet" href="assets/css/brand.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <header>
-    <h1><?php echo $result->num_rows; ?> øl fra <?php echo htmlspecialchars($brand); ?></h1>
+        <h1><?php echo $result->num_rows; ?> øl fra <?php echo htmlspecialchars($brand ?: 'Flasker med fejl'); ?></h1>
     </header>
     <div class="container">
         <a href="landing.php" class="back-link">← Tilbage til oversigten</a>
@@ -81,7 +76,7 @@ function countryFlagEmoji($countryCode)
                                 <p><strong>ID:</strong> <?php echo htmlspecialchars($row['ID'] ?? 'INGEN DATA'); ?></p>
                                 <p><strong>Placering:</strong> <?php echo htmlspecialchars($row['Placering'] ?? 'INGEN DATA'); ?></p>
                                 <p><strong>Land:</strong> <?php echo countryFlagEmoji($row['Land'] ?? '') . ' (' . htmlspecialchars($row['Land'] ?? 'INGEN DATA') . ')'; ?></p>
-                                <p><strong>Korrekt Emballage:</strong> <?php echo htmlspecialchars($row['rigtig_emballage'] == 0) ? "❌" : "✅"; ?></p>
+                                <p><strong>Korrekt Emballage:</strong> <?php echo $row['rigtig_emballage'] == 0 ? "❌" : "✅"; ?></p>
                                 <p><strong>Beskrivelse af fejl:</strong> <?php echo htmlspecialchars($row['fejl_note'] ?? 'INGEN DATA'); ?></p>
                             </div>
                         </td>
@@ -92,14 +87,6 @@ function countryFlagEmoji($countryCode)
             <p>Ingen produkter fundet for dette brand.</p>
         <?php endif; ?>
     </div>
-    <!-- Modal -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="caption"></div>
-    </div>
-
-
     <script>
         
     // Modal elementer
@@ -144,3 +131,7 @@ function countryFlagEmoji($countryCode)
 
 </body>
 </html>
+
+</body>
+</html>
+

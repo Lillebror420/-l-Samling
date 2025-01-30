@@ -30,17 +30,14 @@
         ?> bryghuse i samlingen.</span>
         </h2>
 
-        <!-- Links for at filtrere bryghuse -->
-        <div>
-            <a href="landing.php" <?php echo !isset($_GET['filter']) || $_GET['filter'] != 'no-error' ? 'class="active"' : ''; ?>>Alle bryghuse</a> | 
-            <a href="landing.php?filter=no-error" <?php echo isset($_GET['filter']) && $_GET['filter'] == 'no-error' ? 'class="active"' : ''; ?>>Kun uden fejl</a>
-        </div>
+        <!-- Filter knap for at vise kun de bryghuse med fejl = 0 -->
+        <a href="landing.php?filter=no-error" class="filter-button">Vis kun uden fejl</a>
 
         <ul>
             <?php
             require('db.php');
             
-            // Filtrer baseret på URL-parameteren
+            // Tjek om filteret er aktiveret
             $filter = isset($_GET['filter']) && $_GET['filter'] == 'no-error' ? "WHERE fejl = 0" : "";
             $brandsQuery = "SELECT DISTINCT Brand FROM samler_vanvid $filter";
             $brandsResult = $conn->query($brandsQuery);

@@ -7,7 +7,7 @@
 </head>
 <body>
     <header>
-    <h1 class="main-header">
+        <h1 class="main-header">
             <span class="title">🍺 Velkommen til Øl Samlingen 🍺</span>
             <span class="sub-title">
                 Der er <?php 
@@ -21,20 +21,28 @@
         </h1>
     </header>
     <div class="container">
-    <h2>🏭 Vælg et Bryghus 🏭<br>
-    <span class="small-text">Der er <?php 
-        $countQuery = "SELECT COUNT(DISTINCT Brand) as totalBrands FROM samler_vanvid";
-        $countResult = $conn->query($countQuery);
-        $countRow = $countResult->fetch_assoc();
-        echo $countRow['totalBrands'];
-    ?> bryghuse i samlingen.</span>
-</h2>
+        <h2>🏭 Vælg et Bryghus 🏭<br>
+        <span class="small-text">Der er <?php 
+            $countQuery = "SELECT COUNT(DISTINCT Brand) as totalBrands FROM samler_vanvid";
+            $countResult = $conn->query($countQuery);
+            $countRow = $countResult->fetch_assoc();
+            echo $countRow['totalBrands'];
+        ?> bryghuse i samlingen.</span>
+        </h2>
 
+        <!-- Links for at filtrere bryghuse -->
+        <div>
+            <a href="landing.php" <?php echo !isset($_GET['filter']) || $_GET['filter'] != 'no-error' ? 'class="active"' : ''; ?>>Alle bryghuse</a> | 
+            <a href="landing.php?filter=no-error" <?php echo isset($_GET['filter']) && $_GET['filter'] == 'no-error' ? 'class="active"' : ''; ?>>Kun uden fejl</a>
+        </div>
 
         <ul>
             <?php
             require('db.php');
-            $brandsQuery = "SELECT DISTINCT Brand FROM samler_vanvid";
+            
+            // Filtrer baseret på URL-parameteren
+            $filter = isset($_GET['filter']) && $_GET['filter'] == 'no-error' ? "WHERE fejl = 0" : "";
+            $brandsQuery = "SELECT DISTINCT Brand FROM samler_vanvid $filter";
             $brandsResult = $conn->query($brandsQuery);
 
             while ($row = $brandsResult->fetch_assoc()) {

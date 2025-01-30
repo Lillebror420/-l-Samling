@@ -30,9 +30,6 @@
         ?> bryghuse i samlingen.</span>
         </h2>
 
-        <!-- Filter knap for at vise kun de bryghuse med fejl = 0 -->
-        <a href="landing.php?filter=no-error" class="filter-button">Vis kun uden fejl</a>
-
         <ul>
             <?php
             require('db.php');

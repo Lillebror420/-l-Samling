@@ -30,7 +30,7 @@
     <!-- Loading Video -->
     <video id="loading-video" autoplay loop muted>
         <source src="assets/media/loading.mp4" type="video/mp4">
-        Your browser does not support the video tag.
+        Du kan ikke se videoen.
     </video>
 
     <script>
@@ -45,8 +45,21 @@
 
         // Generer det tilfældige tidsinterval
         const randomDelay = getRandomDelay(minDelay, maxDelay);
+        const countdownSeconds = randomDelay / 1000;
 
-        console.log(`Loader samling, vent venligst ${randomDelay / 1000} seconds.`);
+        console.log(`Loader samling, vent venligst i ${countdownSeconds} sekunder.`);
+
+        // Funktion til at opdatere nedtællingen i konsollen
+        let countdown = countdownSeconds;
+        const countdownInterval = setInterval(function() {
+            console.log(`Tid tilbage: ${countdown} sekunder`);
+            countdown--;
+
+            if (countdown < 0) {
+                clearInterval(countdownInterval);
+                console.log("Redirecting now...");
+            }
+        }, 1000);
 
         // Sæt en timeout til at omdirigere efter det tilfældige tidsinterval
         setTimeout(function() {

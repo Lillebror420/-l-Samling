@@ -140,6 +140,8 @@ if ($result->num_rows > 0) {
         echo '<p><strong>ID:</strong> ' . ($row['ID'] ?? 'INGEN DATA') . '</p>';
         echo '<p><strong>Placering:</strong> ' . ($row['Placering'] ?? 'INGEN DATA') . '</p>';
         echo '<p><strong>Land:</strong> ' . countryFlagEmoji($row['Land']) . ' (' . ($row['Land'] ?? 'INGEN DATA') . ')</p>';
+        echo '<p><strong>Korrekt Emballage:</strong> ' . ($row['rigtig_emballage'] == 0) ? "❌" : "✅"; '</p>';
+        echo '<p><strong>Beksrivelse:</strong> ' . ($row['fejl_note'] ?? 'INGEN DATA') . '</p>';
         echo '</div>';
         echo '</td>';
         echo '</tr>';
